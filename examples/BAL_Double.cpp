@@ -9,7 +9,7 @@
 #include "algo/lm_algo.h"
 #include "solver/schur_pcg_solver.h"
 #include "linear_system/schur_LM_linear_system.h"
-#include "argparse/include/argparse/argparse.hpp"
+#include "argparse.hpp"
 
 template<typename T>
 class BAL_Edge : public MegBA::BaseEdge<T> {
@@ -110,7 +110,8 @@ int main(int argc, char *argv[]) {
   }
 
   worldSize = program.get<int>("--world_size");
-  name = program.get<std::string>("--path");
+  //name = program.get<std::string>("--path");
+  name = std::string("/H2/MegBA/build/examples/problem-1490-935273-pre.txt");
   iter = program.get<int>("--max_iter");
   solver_tol = program.get<double>("--solver_tol");
   solver_refuse_ratio = program.get<double>("--solver_refuse_ratio");

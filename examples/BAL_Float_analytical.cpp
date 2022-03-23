@@ -9,7 +9,7 @@
 #include "algo/lm_algo.h"
 #include "solver/schur_pcg_solver.h"
 #include "linear_system/schur_LM_linear_system.h"
-#include "argparse/include/argparse/argparse.hpp"
+#include "argparse.hpp"
 
 template<typename T>
 class BalEdgeAnalyticalDerivatives : public MegBA::BaseEdge<T> {

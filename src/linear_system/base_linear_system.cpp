@@ -7,6 +7,7 @@
 
 #include "linear_system/base_linear_system.h"
 #include "solver/base_solver.h"
+#include <stdexcept>
 
 namespace MegBA {
 template <typename T>
