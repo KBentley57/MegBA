@@ -200,7 +200,6 @@ JetVector<T> JetVector<T>::operator+(const JetVector<T> &g) const {
   Check::shapeThrow(*this, g);
   Check::deviceThrow(*this, g);
   switch (_device) {
-<<<<<<< HEAD
   case Device::CPU:
     return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
                           return math::impl::vectorAddVectorCPU(*this, g, out);
@@ -212,19 +211,6 @@ JetVector<T> JetVector<T>::operator+(const JetVector<T> &g) const {
   default:
   	throw std::runtime_error("Bad Switch on device");
   }   
-=======
-    case Device::CPU:
-      return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
-                            return math::impl::vectorAddVectorCPU(*this, g,
-                                                                  out);
-                          }};
-    case Device::CUDA:
-      return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
-                            return math::impl::vectorAddVectorCUDA(*this, g,
-                                                                   out);
-                          }};
-  }  // switch _device
->>>>>>> main
 }
 
 template <typename T>
@@ -233,7 +219,6 @@ JetVector<T> JetVector<T>::operator-(const JetVector<T> &g) const {
   Check::shapeThrow(*this, g);
   Check::deviceThrow(*this, g);
   switch (_device) {
-<<<<<<< HEAD
   case Device::CPU:
     return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
                           return math::impl::vectorSubVectorCPU(*this, g, out);
@@ -245,19 +230,6 @@ JetVector<T> JetVector<T>::operator-(const JetVector<T> &g) const {
   default:
   	throw std::runtime_error("Bad Switch on device");                        
   }   
-=======
-    case Device::CPU:
-      return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
-                            return math::impl::vectorSubVectorCPU(*this, g,
-                                                                  out);
-                          }};
-    case Device::CUDA:
-      return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
-                            return math::impl::vectorSubVectorCUDA(*this, g,
-                                                                   out);
-                          }};
-  }  // switch _device
->>>>>>> main
 }
 
 template <typename T>
@@ -266,7 +238,6 @@ JetVector<T> JetVector<T>::operator*(const JetVector<T> &g) const {
   Check::shapeThrow(*this, g);
   Check::deviceThrow(*this, g);
   switch (_device) {
-<<<<<<< HEAD
   case Device::CPU:
     return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
                           return math::impl::vectorMulVectorCPU(
@@ -280,19 +251,6 @@ JetVector<T> JetVector<T>::operator*(const JetVector<T> &g) const {
   default:
   	throw std::runtime_error("Bad Switch on device");
   }  
-=======
-    case Device::CPU:
-      return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
-                            return math::impl::vectorMulVectorCPU(*this, g,
-                                                                  out);
-                          }};
-    case Device::CUDA:
-      return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
-                            return math::impl::vectorMulVectorCUDA(*this, g,
-                                                                   out);
-                          }};
-  }  // switch _device
->>>>>>> main
 }
 
 template <typename T>
@@ -301,7 +259,6 @@ JetVector<T> JetVector<T>::operator/(const JetVector<T> &g) const {
   Check::shapeThrow(*this, g);
   Check::deviceThrow(*this, g);
   switch (_device) {
-<<<<<<< HEAD
   case Device::CPU:
     return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
                           return math::impl::vectorDivVectorCPU(*this, g, out);
@@ -313,19 +270,6 @@ JetVector<T> JetVector<T>::operator/(const JetVector<T> &g) const {
   default:
   	throw std::runtime_error("Bad Switch on device");
   } 
-=======
-    case Device::CPU:
-      return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
-                            return math::impl::vectorDivVectorCPU(*this, g,
-                                                                  out);
-                          }};
-    case Device::CUDA:
-      return JetVector<T>{getInitTemplate(*this, g), [&](JetVector<T> *out) {
-                            return math::impl::vectorDivVectorCUDA(*this, g,
-                                                                   out);
-                          }};
-  }  // switch _device
->>>>>>> main
 }
 
 template <typename T>
@@ -396,7 +340,6 @@ JetVector<T> JetVector<T>::operator-() const {
 template <typename T>
 JetVector<T> JetVector<T>::operator+(T g) const {
   switch (_device) {
-<<<<<<< HEAD
   case Device::CPU:
     return JetVector<T>{*this, [&](JetVector<T> *out) {
                           return math::impl::jetVectorAddScalarCPU(*this, g, out);
@@ -407,25 +350,12 @@ JetVector<T> JetVector<T>::operator+(T g) const {
                         }};
   default:
   	throw std::runtime_error("Bad Switch on device");
-=======
-    case Device::CPU:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::jetVectorAddScalarCPU(*this, g,
-                                                                     out);
-                          }};
-    case Device::CUDA:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::jetVectorAddScalarCUDA(*this, g,
-                                                                      out);
-                          }};
->>>>>>> main
   }  // switch _device
 }
 
 template <typename T>
 JetVector<T> JetVector<T>::operator-(T g) const {
   switch (_device) {
-<<<<<<< HEAD
   case Device::CPU:
     return JetVector<T>{*this, [&](JetVector<T> *out) {
                           return math::impl::jetVectorSubScalarCPU(
@@ -439,25 +369,11 @@ JetVector<T> JetVector<T>::operator-(T g) const {
   default:
   	throw std::runtime_error("Bad Switch on device");
   }    
-=======
-    case Device::CPU:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::jetVectorSubScalarCPU(*this, g,
-                                                                     out);
-                          }};
-    case Device::CUDA:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::jetVectorSubScalarCUDA(*this, g,
-                                                                      out);
-                          }};
-  }  // switch _device
->>>>>>> main
 }
 
 template <typename T>
 JetVector<T> JetVector<T>::operator*(T g) const {
   switch (_device) {
-<<<<<<< HEAD
   case Device::CPU:
     return JetVector<T>{*this, [&](JetVector<T> *out) {
                           return math::impl::jetVectorMulScalarCPU(
@@ -471,19 +387,6 @@ JetVector<T> JetVector<T>::operator*(T g) const {
   default:
   	throw std::runtime_error("Bad Switch on device");
   }    
-=======
-    case Device::CPU:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::jetVectorMulScalarCPU(*this, g,
-                                                                     out);
-                          }};
-    case Device::CUDA:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::jetVectorMulScalarCUDA(*this, g,
-                                                                      out);
-                          }};
-  }  // switch _device
->>>>>>> main
 }
 
 template <typename T>
@@ -530,21 +433,15 @@ JetVector<T> &JetVector<T>::operator*=(T g) {
   return *this;
 }
 
-<<<<<<< HEAD
-template <typename T> JetVector<T> &JetVector<T>::operator/=(T g) {
-  g = T(T(1.0) / g);
-=======
 template <typename T>
 JetVector<T> &JetVector<T>::operator/=(T g) {
   g = T(T(1.) / g);
->>>>>>> main
   return (*this *= g);
 }
 
 template <typename T>
 JetVector<T> JetVector<T>::scalarSubThis(T f) const {
   switch (_device) {
-<<<<<<< HEAD
   case Device::CPU:
     return JetVector<T>{*this, [&](JetVector<T> *out) {
                           return math::impl::scalarSubJetVectorCPU(
@@ -558,25 +455,11 @@ JetVector<T> JetVector<T>::scalarSubThis(T f) const {
   default:
   	throw std::runtime_error("Bad Switch on device");
   }    
-=======
-    case Device::CPU:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::scalarSubJetVectorCPU(f, *this,
-                                                                     out);
-                          }};
-    case Device::CUDA:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::scalarSubJetVectorCUDA(f, *this,
-                                                                      out);
-                          }};
-  }  // switch _device
->>>>>>> main
 }
 
 template <typename T>
 JetVector<T> JetVector<T>::scalarDivThis(T f) const {
   switch (_device) {
-<<<<<<< HEAD
   case Device::CPU:
     return JetVector<T>{*this, [&](JetVector<T> *out) {
                           return math::impl::scalarDivJetVectorCPU(
@@ -590,19 +473,6 @@ JetVector<T> JetVector<T>::scalarDivThis(T f) const {
   default:
   	throw std::runtime_error("Bad Switch on device");
   }    
-=======
-    case Device::CPU:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::scalarDivJetVectorCPU(f, *this,
-                                                                     out);
-                          }};
-    case Device::CUDA:
-      return JetVector<T>{*this, [&](JetVector<T> *out) {
-                            return math::impl::scalarDivJetVectorCUDA(f, *this,
-                                                                      out);
-                          }};
-  }  // switch _device
->>>>>>> main
 }
 
 template class JetVector<float>;

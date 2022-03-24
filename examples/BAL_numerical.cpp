@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
   double solver_tol, solver_refuse_ratio, tau, epsilon1, epsilon2;
   std::string out_path;
 
-  argparse::ArgumentParser program("BAL_Double");
+  argparse::ArgumentParser program("BAL_PRECISION");
 
   program.add_argument("--world_size")
       .help("World size")
@@ -125,7 +125,8 @@ int main(int argc, char *argv[]) {
             << ", solver_max_iter: " << solver_max_iter << ", tau: " << tau
             << ", epsilon1: " << epsilon1 << ", epsilon2: " << epsilon2
             << std::endl;
-  typedef float T;
+    
+  typedef PRECISION T;
 
   std::ifstream fin(name);
 

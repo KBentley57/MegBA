@@ -1,3 +1,28 @@
+###############################################################################
+#
+#   Project:  MegBA
+#   
+#   Description: A High-Performance and Distributed Library for Large Scale
+#                bundle adjustment 
+#
+#   MegBA is a fast and distributed library for large-scale Bundle Adjustment 
+#   (BA). MegBA has a novel end-to-end vectorised BA algorithm which can fully 
+#   exploit the massive parallel cores on GPUs, thus speeding up the entire BA 
+#   computation. It also has a novel distributed BA algorithm that can 
+#   automatically partition BA problems, and solve BA sub-problems using 
+#   distributed GPUs. The GPUs synchronise intermediate solving state using 
+#   network-efficient collective communication, and the synchronisation is 
+#   designed to minimise communication cost. MegBA has a memory-efficient GPU 
+#   runtime and it exposes g2o-compatible APIs.
+#
+#   This work is described based on the paper at the arxiv link below
+#   https://arxiv.org/abs/2112.01349
+#
+#   Authors:  Jie Ren, Wenteng Liang, Ran Yan, Luo Mai, Shiwen Liu, Xaio Liu
+#   
+#   Date:  2021 December 10
+#
+###############################################################################
 
 cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 
@@ -42,6 +67,14 @@ if(ENABLE_OPENMP)
 	find_package(OpenMP)
 endif(ENABLE_OPENMP)
 
+# Allow an option for building tests with CTest.
+#
+# @TODO Add test cases for easy regression testing.
+option(ENABLE_TESTING "Enable testing with CTest" TRUE)
+if(ENABLE_TESTING)    
+    include(CTest)  
+endif(ENABLE_TESTING)
+
 include(FetchContent)
 include(CheckLanguage)
 
@@ -56,7 +89,7 @@ if(CMAKE_CUDA_COMPILER)
     # These architectures date back to the GTX 1000 series cards, and 
     # Quadro 100 series cards. Consult the link below for reference
     # https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/
-    set(CMAKE_CUDA_ARCHITECTURES 60 61 62 70 72 75 80 86 87)
+    set(CMAKE_CUDA_ARCHITECTURES 60 61 62 70 72 75 80 86)
     # Cub and Thrust are usually found using config mode.  
     # During the configuration step, pass the location to the cmake directory for 
     # Each of these.
@@ -81,7 +114,7 @@ endif(CMAKE_CUDA_COMPILER)
 # Example: cmake -DEXTERNAL_EIGEN=TRUE ../
 #
 # Eigen is typically found without a Module, similar to Cub and Thrust.
-option(EXTERNAL_EIGEN "Use an external version of Eigen3" FALSE)
+option(EXTERNAL_EIGEN "Use an external version of Eigen3" TRUE)
 
 if(EXTERNAL_EIGEN)
     find_package(Eigen3 3.4 REQUIRED NO_MODULE)
@@ -101,7 +134,7 @@ endif(NOT Eigen3_FOUND OR NOT EXTERNAL_EIGEN)
 # The same goes for argparse.  A user can install it, but since it is not 
 # as popular as Eigen, it is more likely to need installation, or cloning from
 # a repository
-option(EXTERNAL_ARGPARSE "Use an external version of argparse" TRUE)
+option(EXTERNAL_ARGPARSE "Use an external version of argparse" FALSE)
 
 if(NOT EXTERNAL_ARGPARSE)
     message(STATUS "Fetching argparse from git")

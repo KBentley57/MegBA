@@ -5,21 +5,12 @@
  *
  **/
 
-<<<<<<< HEAD
 #include "resource/memory_pool.h"
 #include "resource/handle_manager.h"
 #include <unordered_map>
 #include <set>
 #include <stack>
 #include <stdexcept>
-=======
-#include <set>
-#include <stack>
-#include <unordered_map>
-
-#include "resource/handle_manager.h"
-#include "resource/memory_pool.h"
->>>>>>> main
 
 namespace MegBA {
 namespace {

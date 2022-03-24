@@ -27,7 +27,7 @@ Paper: https://arxiv.org/abs/2112.01349 (updated version)
 Dependencies:
 
 - C++14 (C++17 is required for compiling examples)
-- CMake (>= 3.15)
+- CMake (>= 3.18)
 - CUDA (>= 11.2) https://developer.nvidia.com/cuda-downloads
 - Eigen (>= 3.4.0) https://eigen.tuxfamily.org/
 - [ArgParse](https://github.com/JieRen98/argparse)
@@ -35,26 +35,36 @@ Dependencies:
 
 You can also easily install all dependencies with script: [script](https://drive.google.com/file/d/154whcVH2VcJCYnTSlnfo_tbIIaQvSax3/view?usp=sharing)
 
+* Debian Instructions
+
+```bash
+  sudo apt-get update
+  sudp apt-get install g++ cmake nvidia-cuda-dev libeigen3-dev
+```
 
 Demo with BAL dataset:
 
 * Download any pre.txt.bz2 file from BAL Dataset: https://grail.cs.washington.edu/projects/bal/ and uncompressed.
 
+```bash
+  wget https://grail.cs.washington.edu/projects/bal/data/venice/problem-1102-780462-pre.txt.bz2
+  bunzip2 problem-1102-780462-pre.txt.bz2
+```
+
 * Compile
 
   ```bash
-  git submodule init && git submodule update --remote
   mkdir build
   cd build
-  cmake ..
-  make -j4 BAL_Double
+  cmake -DCUB_DIR=/usr/include/cub/cmake -DThrust_DIR=/usr/include/thrust/cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=TRUE -DENABLE_LTO=FALSE -DEXTERNAL_EIGEN=TRUE -DEXTERNAL_ARGPARSE=FALSE -DBUILD_EXAMPLES=TRUE ../
+  make -j4 BAL_Float
   ```
 
 * Run the demo (Venice-1778)
 
   ```bash
   cd examples
-  ./BAL_Double --path=/path/to/your/dataset --world_size=2 --max_iter=100 --solver_tol=1e-1 --solver_refuse_ratio=1 --solver_max_iter=100 --tau=1e4 --epsilon1=1 --epsilon2=1e-10
+  ./BAL_Float --path problem-1102-780462-pre.txt --world_size 2 --max_iter 100 --solver_tol 1e-1 --solver_refuse_ratio 1 --solver_max_iter 100 --tau 1e4 --epsilon1 1 --epsilon2 1e-10
   ```
 
   - world_size: number of GPUs available
