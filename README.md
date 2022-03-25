@@ -44,19 +44,14 @@ You can also easily install all dependencies with script: [script](https://drive
 
 Demo with BAL dataset:
 
-* Download any pre.txt.bz2 file from BAL Dataset: https://grail.cs.washington.edu/projects/bal/ and uncompressed.
-
-```bash
-  wget https://grail.cs.washington.edu/projects/bal/data/venice/problem-1102-780462-pre.txt.bz2
-  bunzip2 problem-1102-780462-pre.txt.bz2
-```
+* Download any pre.txt.bz2 file from BAL Dataset: https://grail.cs.washington.edu/projects/bal/ and   decompressed.
 
 * Compile
 
   ```bash
   mkdir build
   cd build
-  cmake -DCUB_DIR=/usr/include/cub/cmake -DThrust_DIR=/usr/include/thrust/cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=TRUE -DENABLE_LTO=FALSE -DEXTERNAL_EIGEN=TRUE -DEXTERNAL_ARGPARSE=FALSE -DBUILD_EXAMPLES=TRUE ../
+  cmake -DCUB_DIR=/usr/include/cub/cmake -DThrust_DIR=/usr/include/thrust/cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=TRUE -DENABLE_LTO=FALSE -DEXTERNAL_EIGEN=TRUE -DEXTERNAL_ARGPARSE=FALSE -DBUILD_EXAMPLES=TRUE -DDOWNLOAD_TEST_DATA=TRUE ../
   make -j4 BAL_Float
   ```
 

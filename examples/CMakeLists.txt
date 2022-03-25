@@ -5,13 +5,41 @@
 #
 ###############################################################################
 
-FetchContent_Declare(
-    Venice 
-    URL https://grail.cs.washington.edu/projects/bal/data/venice/problem-52-64053-pre.txt.bz2
-    URL_HASH MD5=5b8a1de090772f18eac467260a210339
-)
+# Provide the option to download additional data for the examples.  This allows 
+# us to keep minimal data in the repository.
+option(DOWNLOAD_TEST_DATA "Downloads additional test data" FALSE)
+if(DOWNLOAD_TEST_DATA)
+    include("Venice.cmake")
+    if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/venice)
+        file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/venice)
+        foreach(problem ${Venice})
+            set(filename ${problem} NAME)
+            file(DOWNLOAD 
+                 ${problem}
+                 ${CMAKE_CURRENT_BINARY_DIR}/venice/${filename}
+                 SHOW_PROGRESS
+                 LOG venice_download.txt)
+        endforeach(problem ${Venice})
+    endif(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/venice)
 
-#FetchContent_MakeAvailable(Venice)
+    file(GLOB archives ${CMAKE_CURRENT_BINARY_DIR}/venice/*)
+    foreach(archive ${archives})
+        file(ARCHIVE_EXTRACT 
+             INPUT ${archive} 
+             DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/venice
+             PATTERN *.bz2)
+    endforeach(archive ${archives})
+endif(DOWNLOAD_TEST_DATA)
+
+###############################################################################
+#
+#   Extract the single data file provided with this repository
+#
+###############################################################################
+
+file(ARCHIVE_EXTRACT 
+     INPUT ${CMAKE_CURRENT_SOURCE_DIR}/problem-52-64053-pre.txt.xz
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 ###############################################################################
 #
