@@ -5,6 +5,16 @@
 #
 ###############################################################################
 
+find_program(BUNZIP2_EXEXCUTABLE  
+    NAMES bzip2 bunzip2 
+    PATHS /usr /usr/local 
+    PATH_SUFFIXES bin 
+    REQUIRED)
+
+if(BUNZIP2_EXEXCUTABLE)
+    message(STATUS "BZip2 executable found: ${BUNZIP2_EXEXCUTABLE}")
+endif(BUNZIP2_EXEXCUTABLE)
+
 # Provide the option to download additional data for the examples.  This allows 
 # us to keep minimal data in the repository.
 option(DOWNLOAD_TEST_DATA "Downloads additional test data" FALSE)
@@ -37,9 +47,14 @@ endif(DOWNLOAD_TEST_DATA)
 #
 ###############################################################################
 
-file(ARCHIVE_EXTRACT 
-     INPUT ${CMAKE_CURRENT_SOURCE_DIR}/problem-52-64053-pre.txt.xz
-     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(OUTPUT problem-52-64053-pre.txt
+    COMMAND ${BUNZIP2_EXEXCUTABLE} -d -k -q -f ${CMAKE_CURRENT_SOURCE_DIR}/problem-52-64053-pre.txt.bz2
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/problem-52-64053-pre.txt.bz2
+    COMMENT "Extracting Venice data with 52 cameras and 64053 points")
+
+add_custom_target(example_data ALL
+    DEPENDS problem-52-64053-pre.txt)
 
 ###############################################################################
 #
